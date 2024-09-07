@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"reload"
 	"strconv"
 	"strings"
 	"unicode"
 )
 
-func main() {
-	str := "it (cap) was , the BEST (low) of times, it was the worst of times (up) , a it 'was' the' age' of !wisdom, a  HIT (low) !? was !!the age of foolishness (cap, 6) , a ot was ... the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of darkness, it was the spring of hope, IT WAS THE (low, 3) winter of despair. 10 (bin) 1E (hex)"
+func ProccessText(str string) string {
 	strsplit := strings.Fields(str)
 	vowelCheck(&strsplit)
 	SpecificCaseModifier(&strsplit, "(cap,", Capitalize)
@@ -20,10 +18,7 @@ func main() {
 	Ponctuation(&strsplit)
 	AdjustSingleQuotes(&strsplit)
 	CompleteSingleQuotes(&strsplit)
-	for i := 0; i < len(strsplit); i++ {
-		fmt.Print("|", strsplit[i], "|", "\n")
-	}
-	fmt.Println(strings.Join(strsplit, " "))
+	return (strings.Join(strsplit, " "))
 
 }
 
