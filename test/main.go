@@ -1,23 +1,45 @@
 package main
 
 import (
-	"reload"
+	"fmt"
+	"os"
 	"strconv"
 	"strings"
 	"unicode"
 )
+
+func main() {
+	if len(os.Args) != 3 {
+		return
+	}
+	input := os.Args[1]
+	output := os.Args[2]
+
+	texttochange, err := os.ReadFile(input)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	text := string(texttochange)
+	text = ProccessText(text)
+	err = os.WriteFile(output, []byte(text), 0644)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
 
 func ProccessText(str string) string {
 	strsplit := strings.Fields(str)
 	vowelCheck(&strsplit)
 	SpecificCaseModifier(&strsplit, "(cap,", Capitalize)
 	Case(&strsplit)
-	Base(&strsplit, reload.ConvertBase)
+	Base(&strsplit, ConvertBase)
 	SpecificCaseModifier(&strsplit, "(low,", strings.ToLower)
 	SpecificCaseModifier(&strsplit, "(up,", strings.ToUpper)
-	Ponctuation(&strsplit)
 	AdjustSingleQuotes(&strsplit)
-	CompleteSingleQuotes(&strsplit)
+	Ponctuation(&strsplit)
+	// CompleteSingleQuotes(&strsplit)
 	return (strings.Join(strsplit, " "))
 
 }
@@ -161,5 +183,87 @@ func Capitalize(str string) string {
 	if len(str) == 0 {
 		return str
 	}
-	return strings.ToUpper(string(str[0])) + str[1:]
+	return strings.ToUpper(string(str[0])) + strings.ToLower(str[1:])
+}
+
+func ConvertBase(nbr, baseFrom, baseTo string) string {
+	decimal := toDecimal(nbr, baseFrom)
+	return toBase(decimal, baseTo)
+}
+
+func toDecimal(nbr, baseFrom string) int {
+	result := 0
+	myPower := len(nbr) - 1
+	baseLen := len(baseFrom)
+	for i := 0; i < len(nbr); i++ {
+		digit := basicAtoi(string(nbr[i]))
+		if digit >= baseLen {
+			panic("Invalid digit in input number for the given base")
+		}
+		result += digit * power(baseLen, myPower)
+		myPower--
+	}
+	return result
+}
+
+func toBase(nbr int, base string) string {
+	if nbr == 0 {
+		return string(base[0])
+	}
+	strSlice := []rune(base)
+	baseLen := len(strSlice)
+	var result []rune
+	for nbr > 0 {
+		remainder := nbr % baseLen
+		result = append([]rune{strSlice[remainder]}, result...)
+		nbr /= baseLen
+	}
+	return string(result)
+}
+
+func power(base, exp int) int {
+	result := 1
+	for i := 0; i < exp; i++ {
+		result *= base
+	}
+	return result
+}
+
+func basicAtoi(ch string) int {
+	switch ch {
+	case "0":
+		return 0
+	case "1":
+		return 1
+	case "2":
+		return 2
+	case "3":
+		return 3
+	case "4":
+		return 4
+	case "5":
+		return 5
+	case "6":
+		return 6
+	case "7":
+		return 7
+	case "8":
+		return 8
+	case "9":
+		return 9
+	case "A", "a":
+		return 10
+	case "B", "b":
+		return 11
+	case "C", "c":
+		return 12
+	case "D", "d":
+		return 13
+	case "E", "e":
+		return 14
+	case "F", "f":
+		return 15
+	default:
+		return 0
+	}
 }
