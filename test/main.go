@@ -39,7 +39,7 @@ func ProccessText(str string) string {
 	SpecificCaseModifier(&strsplit, "(up,", strings.ToUpper)
 	AdjustSingleQuotes(&strsplit)
 	Ponctuation(&strsplit)
-	// CompleteSingleQuotes(&strsplit)
+	CompleteSingleQuotes(&strsplit)
 	return (strings.Join(strsplit, " "))
 
 }
@@ -140,17 +140,37 @@ func AdjustSingleQuotes(s *[]string) {
 				insidequotes = false
 			}
 		}
+
 	}
+
 	*s = slice
 }
 
 func CompleteSingleQuotes(s *[]string) {
 	slice := *s
-	for i := 0; i < len(slice); i++ {
-		if slice[i][0] == '\'' && slice[i][len(slice[i])-1] != '\'' {
-			slice[i] += "'"
-		} else if slice[i][0] != '\'' && slice[i][len(slice[i])-1] == '\'' {
-			slice[i] = "'" + slice[i]
+	insidequotes := false
+	count := 0
+	for _, word := range slice {
+		for _, ch := range word {
+			if ch == '\'' {
+				count++
+			}
+		}
+	}
+	if count%2 != 2 {
+
+		for i := 0; i < len(slice); i++ {
+			if slice[i][0] == '\'' {
+				if !insidequotes {
+					insidequotes = true
+					continue
+
+				} else if insidequotes {
+					slice[i-1] += "'"
+					slice[i] = slice[i][1:]
+					insidequotes = false
+				}
+			}
 		}
 	}
 	*s = slice
