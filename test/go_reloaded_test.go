@@ -1,6 +1,7 @@
-package main
+package reload
 
 import (
+	reload "reload/processtext"
 	"testing"
 )
 
@@ -34,7 +35,7 @@ func TestProccessText(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			actual := ProccessText(test.input)
+			actual := reload.ProccessText(test.input)
 			if actual != test.expected {
 				t.Errorf("expected:\n%s\n\nactual:\n%s\n", test.expected, actual)
 			}
