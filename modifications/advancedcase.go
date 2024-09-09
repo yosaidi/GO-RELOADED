@@ -8,6 +8,7 @@ import (
 func SpecificCaseModifier(s *[]string, prefix string, f func(string) string) {
 	slice := *s
 	i := 1
+
 	for i < len(slice) {
 
 		if strings.HasPrefix(slice[i-1], prefix) && strings.HasSuffix(slice[i], ")") {

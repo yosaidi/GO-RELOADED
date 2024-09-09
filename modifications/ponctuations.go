@@ -1,8 +1,9 @@
 package reload
 
-import(
-"unicode"
+import (
+	"unicode"
 )
+
 func Ponctuation(s *[]string) {
 	slice := *s
 	pcts := []string{";", ",", "!", "?", ":", ";"}
@@ -34,4 +35,3 @@ func isPunctuation(s string) bool {
 	}
 	return true
 }
-

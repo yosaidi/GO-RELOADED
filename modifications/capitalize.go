@@ -1,6 +1,6 @@
 package reload
 
-import(
+import (
 	"strings"
 )
 

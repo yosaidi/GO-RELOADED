@@ -1,7 +1,7 @@
 package reload
 
 import (
-	"reload/modifications"
+	reload "reload/modifications"
 
 	"strings"
 )
@@ -11,9 +11,10 @@ func ProccessText(str string) string {
 	reload.VowelCheck(&strsplit)
 	reload.SpecificCaseModifier(&strsplit, "(cap,", reload.Capitalize)
 	reload.Case(&strsplit)
-	reload.Base(&strsplit, reload.ConvertBase)
+	reload.Base(&strsplit)
 	reload.SpecificCaseModifier(&strsplit, "(low,", strings.ToLower)
 	reload.SpecificCaseModifier(&strsplit, "(up,", strings.ToUpper)
+	reload.DeleteUnwantedFlags(&strsplit)
 	reload.AdjustSingleQuotes(&strsplit)
 	reload.Ponctuation(&strsplit)
 	reload.CompleteSingleQuotes(&strsplit)

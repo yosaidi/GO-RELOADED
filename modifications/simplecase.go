@@ -1,7 +1,6 @@
 package reload
 
 import (
-
 	"strings"
 )
 
