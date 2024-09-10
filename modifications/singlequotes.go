@@ -2,22 +2,30 @@ package reload
 
 func AdjustSingleQuotes(s *[]string) {
 	slice := *s
-	insidequotes := false
-	for i := 0; i < len(slice)-1; i++ {
-		if slice[i] == "'" {
-			if !insidequotes {
+	count := 0
+	i := 0
+	for i < len(slice) {
+		if slice[i] == "'" && count == 0 {
+			count++
+			slice[i] += slice[i+1]
+			slice = append(slice[:i+1], slice[i+2:]...)
+
+		} else if slice[i] == "'" && count%2 == 1 {
+			slice[i-1] += slice[i]
+			slice = append(slice[:i], slice[i+1:]...)
+			count++
+
+		} else if slice[i] == "'" && count%2 == 0 {
+			count++
+			if i+1 < len(slice) {
+
 				slice[i] += slice[i+1]
 				slice = append(slice[:i+1], slice[i+2:]...)
-				insidequotes = true
-			} else if insidequotes {
-				slice[i-1] += slice[i]
-				slice = append(slice[:i], slice[i+1:]...)
-				insidequotes = false
 			}
+		} else {
+			i++
 		}
-
 	}
-
 	*s = slice
 }
 
