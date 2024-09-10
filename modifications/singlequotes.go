@@ -32,7 +32,7 @@ func CompleteSingleQuotes(s *[]string) {
 			}
 		}
 	}
-	if count%2 != 2 {
+	if count%2 != 0 {
 
 		for i := 0; i < len(slice); i++ {
 			if slice[i][0] == '\'' {

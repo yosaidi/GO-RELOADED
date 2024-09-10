@@ -8,15 +8,14 @@ import (
 
 func ProccessText(str string) string {
 	strsplit := strings.Fields(str)
-	reload.VowelCheck(&strsplit)
-	reload.SpecificCaseModifier(&strsplit, "(cap,", reload.Capitalize)
-	reload.Case(&strsplit)
+	reload.Case(&strsplit, "(cap", reload.Capitalize)
+	reload.Case(&strsplit, "(up", strings.ToUpper)
+	reload.Case(&strsplit, "(low", strings.ToLower)
 	reload.Base(&strsplit)
-	reload.SpecificCaseModifier(&strsplit, "(low,", strings.ToLower)
-	reload.SpecificCaseModifier(&strsplit, "(up,", strings.ToUpper)
+	reload.VowelCheck(&strsplit)
+	reload.Ponctuation(&strsplit)
 	reload.DeleteUnwantedFlags(&strsplit)
 	reload.AdjustSingleQuotes(&strsplit)
-	reload.Ponctuation(&strsplit)
 	reload.CompleteSingleQuotes(&strsplit)
 	return (strings.Join(strsplit, " "))
 
