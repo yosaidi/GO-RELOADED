@@ -1,10 +1,14 @@
 package reload
 
-func DeleteUnwantedFlags(s *[]string) {
+import
+(
+	"strings"
+)
+func DeleteUnwantedFlags(s *[]string, prefix string) {
 	slice := *s
 	i := 0
 	for i < len(slice) {
-		if slice[i] == "(hex)" || slice[i] == "(bin)" || slice[i] == "(cap)" || slice[i] == "(low)" || slice[i] == "(up)" {
+		if strings.HasPrefix(slice[i],prefix)|| strings.HasPrefix(slice[i],strings.ToUpper(prefix)){
 			slice = append(slice[:i], slice[i+1:]...)
 		} else {
 			i++

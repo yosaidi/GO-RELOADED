@@ -25,6 +25,6 @@ func Base(s *[]string) {
 			slice = append(slice[:i], slice[i+1:]...)
 		}
 	}
-	DeleteUnwantedFlags(&slice)
+
 	*s = slice
 }

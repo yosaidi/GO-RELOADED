@@ -8,8 +8,8 @@ import (
 func Case(s *[]string, prefix string, f func(string) string) {
 	slice := *s
 	for i := 0; i < len(slice); i++ {
-		if strings.Contains(slice[i], prefix) || strings.Contains(slice[i], strings.ToUpper(prefix)) {
-			if strings.Contains(slice[i], prefix+",") || strings.Contains(slice[i], strings.ToUpper(prefix)+",") {
+		if strings.Contains(slice[i], prefix) {
+			if strings.Contains(slice[i], prefix+",")  {
 				number, err := strconv.Atoi(slice[i+1][:len(slice[i+1])-1])
 				if err != nil || number > len(slice) || number < 0 {
 
