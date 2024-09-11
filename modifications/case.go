@@ -26,7 +26,7 @@ func Case(s *[]string, prefix string, f func(string) string) {
 				if i == 0 {
 					slice = slice[1:]
 				} else {
-					slice[i-1] += slice[i][len(prefix)+1:]
+					slice[i-1] += slice[i][FindParenthese(slice[i])+1:]
 					slice[i-1] = f(slice[i-1])
 					slice = append(slice[:i], slice[i+1:]...)
 				}
