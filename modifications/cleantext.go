@@ -4,7 +4,7 @@ import
 (
 	"strings"
 )
-func DeleteUnwantedFlags(s *[]string, prefix string) {
+func CleanText(s *[]string, prefix string) {
 	slice := *s
 	i := 0
 	for i < len(slice) {

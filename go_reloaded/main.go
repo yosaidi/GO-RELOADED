@@ -1,11 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"strings"
-
 	reload "reload/processtext"
+	"strings"
 )
 
 func main() {
@@ -17,18 +17,37 @@ func main() {
 		input := os.Args[1]
 		output := os.Args[2]
 
-		texttochange, err := os.ReadFile(input)
+		texttochange, err := os.Open(input)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		text := string(texttochange)
-		text = reload.ProccessText(text)
-		err = os.WriteFile(output, []byte(text), 0644)
+		defer texttochange.Close()
+
+		result, err := os.Create(output)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+		defer result.Close()
+		scan := bufio.NewScanner(texttochange)
+		write := bufio.NewWriter(result)
+
+		for scan.Scan() {
+			line := scan.Text()
+			processedline := reload.ProccessText(line)
+			_, err := write.WriteString(processedline + "\n")
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+		}
+		if err := scan.Err(); err != nil {
+			fmt.Println(err)
+			return
+		}
+		write.Flush()
 	} else {
 		fmt.Print("Invalid file format!", "\n", "Correct file format: '.txt'", "\n")
 	}

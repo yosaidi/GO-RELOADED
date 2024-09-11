@@ -1,36 +1,35 @@
 package reload
 
-
-
 func Ponctuation(s *[]string) {
 	slice := *s
-	puncs := []string{",", ".", "!", "?", ":", ";"}
-	//punc at end
-	for i, word := range slice {
-		for _, punc := range puncs {
-			if string(word[0]) == punc && slice[len(slice)-1] == slice[i] {
-				slice[i-1] = slice[i-1] + word
-				slice = slice[:len(slice)-1]
-			}
+
+	i := 0
+	for i < len(slice) {
+		if CheckPunc(slice[i]) {
+			slice[i-1] += slice[i]
+			slice = append(slice[:i], slice[i+1:]...)
+
+		} else if CheckPunc(string(slice[i][0])) {
+			slice[i-1] += string(slice[i][0])
+			slice[i] = slice[i][1:]
+		} else {
+
+			i++
 		}
 	}
-	//middle punctuation
-	for i, word := range slice {
-		for _, punc := range puncs {
-			if string(word[0]) == punc && string(word[len(word)-1]) == punc && slice[i] != slice[len(slice)-1] {
-				slice[i-1] = slice[i-1] + word
-				slice = append(slice[:i], slice[i+1:]...)
-			}
-		}
-	}
-	// punc in the middle connect to word
-	for i, word := range slice {
-		for _, punc := range puncs {
-			if string(word[0]) == punc && string(word[len(word)-1]) != punc {
-				slice[i-1] += punc
-				slice[i] = word[1:]
-			}
-		}
-	}
+
 	*s = slice
+}
+func CheckPunc(s string) bool {
+	puncs := []rune{',', '.', '!', '?', ':', ';'}
+	puncMap := make(map[rune]bool)
+	for _, punc := range puncs {
+		puncMap[punc] = true
+	}
+	for _, ch := range s {
+		if !puncMap[ch] {
+			return false
+		}
+	}
+	return true
 }
