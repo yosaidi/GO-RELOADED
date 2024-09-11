@@ -20,11 +20,12 @@ func ProccessText(str string) string {
 		reload.CompleteSingleQuotes(&strsplit)
 		i++
 	}
+	reload.InsertSpaceAfterPunc(&strsplit)
 	reload.CleanText(&strsplit, "(up")
 	reload.CleanText(&strsplit, "(cap")
 	reload.CleanText(&strsplit, "(low")
-	reload.CleanText(&strsplit,"(hex")
-	reload.CleanText(&strsplit,"(bin")
+	reload.CleanText(&strsplit, "(hex")
+	reload.CleanText(&strsplit, "(bin")
 
 	return (strings.Join(strsplit, " "))
 
