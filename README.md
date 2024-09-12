@@ -28,6 +28,6 @@ There are specific rules that we are given to modify the text. The following is 
 * Handling punctuations: Every instance of the punctuations ., ,, !, ?, : and ; should be close to the previous word and with space apart from the next one.
 --
 * The punctuation mark ' will always be found with another instance of it and they should be placed to the right and left of the word in the middle of them, without any spaces. (Ex: "I am exactly how they describe me: ' awesome '" -> "I am exactly how they describe me: 'awesome'")
-If there are more than one word between the two ' ' marks, the program should place the marks next to the corresponding words (Ex: "As Elton John said: ' I am the most well-known homosexual in the world '" -> "Messi is : 'I am the best football player in history'")
+If there are more than one word between the two ' ' marks, the program should place the marks next to the corresponding words (Ex: "In my opinion: ' Messi is the best football player in history '" -> "In my opinion : 'Messi is the best football player in history'")
 ## After processing
 * After transforming  according to the above rules,it concatenates them to one single string and then it writes the modified text to a new file as specified by the second argument.
