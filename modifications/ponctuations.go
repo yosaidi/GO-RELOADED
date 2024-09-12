@@ -4,7 +4,7 @@ func Ponctuation(s *[]string) {
 	slice := *s
 
 	i := 0
-	for i < len(slice) && i > 0 {
+	for i < len(slice) {
 		if CheckPunc(slice[i]) {
 			slice[i-1] += slice[i]
 			slice = append(slice[:i], slice[i+1:]...)
@@ -36,7 +36,6 @@ func CheckPunc(s string) bool {
 
 func InsertSpaceAfterPunc(s *[]string) {
 	slice := *s
-
 	for j, word := range slice {
 		for i := 0; i < len(word)-1; i++ {
 			if CheckPunc(string(word[i])) && !CheckPunc(string(word[i+1])) {
