@@ -31,3 +31,5 @@ There are specific rules that we are given to modify the text. The following is 
 If there are more than one word between the two ' ' marks, the program should place the marks next to the corresponding words (Ex: "In my opinion: ' Messi is the best football player in history '" -> "In my opinion : 'Messi is the best football player in history'")
 ## After processing
 * After transforming  according to the above rules,it concatenates them to one single string and then it writes the modified text to a new file as specified by the second argument.
+## Test programme 
+* The code is a accompanied with a script in Go language and a data of examples in order to test your code.
