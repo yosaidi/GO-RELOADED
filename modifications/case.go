@@ -7,6 +7,9 @@ import (
 
 func Case(s *[]string, prefix string, f func(string) string) {
 	slice := *s
+	if len(slice)==1{
+		return
+	}
 	for i := 0; i < len(slice); i++ {
 		if strings.Contains(slice[i], prefix) {
 			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:FindParenthese(slice[i+1])]) {
@@ -28,8 +31,7 @@ func Case(s *[]string, prefix string, f func(string) string) {
 			} else {
 				if i == 0 {
 					slice = slice[1:]
-				} else {
-					slice[i-1] += slice[i][FindParenthese(slice[i])+1:]
+				} else if slice[i]==prefix+")" {
 					slice[i-1] = f(slice[i-1])
 					slice = append(slice[:i], slice[i+1:]...)
 				}
