@@ -9,9 +9,9 @@ func Case(s *[]string, prefix string, f func(string) string) {
 	slice := *s
 	for i := 0; i < len(slice); i++ {
 		if strings.Contains(slice[i], prefix) {
-			if strings.Contains(slice[i], prefix+",") {
+			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:FindParenthese(slice[i+1])]) {
 				number, err := strconv.Atoi(slice[i+1][:FindParenthese(slice[i+1])])
-				if err != nil  || number < 0 {
+				if err != nil || number < 0 {
 					continue
 				}
 				start := 0
@@ -22,7 +22,7 @@ func Case(s *[]string, prefix string, f func(string) string) {
 				for j := start; j < i; j++ {
 					slice[j] = f(slice[j])
 				}
-				
+
 				slice[i-1] += slice[i+1][FindParenthese(slice[i+1])+1:]
 				slice = append(slice[:i], slice[i+2:]...)
 			} else {
@@ -48,4 +48,14 @@ func FindParenthese(s string) int {
 		}
 	}
 	return count
+}
+
+func CheckFlag(s string) bool {
+	for _, ch := range s {
+		if ch < '0' || ch > '9' {
+			return false
+		}
+	}
+	return true
+
 }
