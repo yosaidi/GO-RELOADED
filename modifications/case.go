@@ -11,15 +11,18 @@ func Case(s *[]string, prefix string, f func(string) string) {
 		if strings.Contains(slice[i], prefix) {
 			if strings.Contains(slice[i], prefix+",") {
 				number, err := strconv.Atoi(slice[i+1][:FindParenthese(slice[i+1])])
-				if err != nil || number > len(slice) || number < 0 {
+				if err != nil  || number < 0 {
 					continue
 				}
-				for j := i - number; j < i; j++ {
-					if i > 0 {
-
-						slice[j] = f(slice[j])
-					}
+				start := 0
+				if i-number >= 0 {
+					start = i - number
 				}
+
+				for j := start; j < i; j++ {
+					slice[j] = f(slice[j])
+				}
+				
 				slice[i-1] += slice[i+1][FindParenthese(slice[i+1])+1:]
 				slice = append(slice[:i], slice[i+2:]...)
 			} else {
