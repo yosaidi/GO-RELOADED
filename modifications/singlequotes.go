@@ -4,8 +4,10 @@ func AdjustSingleQuotes(s *[]string) {
 	slice := *s
 	count := 0
 	i := 0
+
 	for i < len(slice) {
-		if slice[i] == "'" && count == 0 {
+
+		if (slice[0][0] == '\'' || slice[i] == "'") && count == 0 {
 			count++
 			slice[i] += slice[i+1]
 			slice = append(slice[:i+1], slice[i+2:]...)
