@@ -7,13 +7,13 @@ import (
 
 func Case(s *[]string, prefix string, f func(string) string) {
 	slice := *s
-	if len(slice)==1{
+	if len(slice) == 1 {
 		return
 	}
 	for i := 0; i < len(slice); i++ {
 		if strings.Contains(slice[i], prefix) {
-			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:FindParenthese(slice[i+1])]) {
-				number, err := strconv.Atoi(slice[i+1][:FindParenthese(slice[i+1])])
+			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:len(slice[i+1])-1]) {
+				number, err := strconv.Atoi(slice[i+1][:len(slice[i+1])-1])
 				if err != nil || number < 0 {
 					continue
 				}
@@ -30,8 +30,8 @@ func Case(s *[]string, prefix string, f func(string) string) {
 				slice = append(slice[:i], slice[i+2:]...)
 			} else {
 				if i == 0 {
-					slice = slice[1:]
-				} else if slice[i]==prefix+")" {
+					continue
+				} else if slice[i] == prefix+")" {
 					slice[i-1] = f(slice[i-1])
 					slice = append(slice[:i], slice[i+1:]...)
 				}
