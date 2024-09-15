@@ -1,9 +1,9 @@
 package reload
 
 import (
-	reload "reload/modifications"
-
 	"strings"
+
+	reload "reload/modifications"
 )
 
 func ProccessText(str string) string {
@@ -17,7 +17,6 @@ func ProccessText(str string) string {
 		reload.VowelCheck(&strsplit)
 		reload.Ponctuation(&strsplit)
 		reload.AdjustSingleQuotes(&strsplit)
-		reload.CompleteSingleQuotes(&strsplit)
 		i++
 	}
 	reload.InsertSpaceAfterPunc(&strsplit)
@@ -28,5 +27,4 @@ func ProccessText(str string) string {
 	reload.CleanText(&strsplit, "(bin)")
 
 	return (strings.Join(strsplit, " "))
-
 }

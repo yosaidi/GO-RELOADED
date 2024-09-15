@@ -12,7 +12,7 @@ func Case(s *[]string, prefix string, f func(string) string) {
 	}
 	for i := 0; i < len(slice)-1; i++ {
 		if strings.Contains(slice[i], prefix) {
-			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:len(slice[i+1])-1]) {
+			if strings.Contains(slice[i], prefix+",") && CheckFlag(slice[i+1][:len(slice[i+1])-1]) && slice[i+1][len(slice[i+1])-1] == ')' {
 				number, err := strconv.Atoi(slice[i+1][:len(slice[i+1])-1])
 				if err != nil || number < 0 {
 					continue
@@ -57,5 +57,4 @@ func CheckFlag(s string) bool {
 		}
 	}
 	return true
-
 }

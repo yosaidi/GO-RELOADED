@@ -38,7 +38,7 @@ func InsertSpaceAfterPunc(s *[]string) {
 	slice := *s
 	for j, word := range slice {
 		for i := 0; i < len(word)-1; i++ {
-			if CheckPunc(string(word[i])) && !CheckPunc(string(word[i+1])) {
+			if CheckPunc(string(word[i])) && !CheckPunc(string(word[i+1])) && word[i]!='.'{
 				slice[j] = word[:i+1] + " " + word[i+1:]
 				break
 			}

@@ -14,7 +14,6 @@ func Base(s *[]string) {
 				return
 			}
 			slice[i-1] = strconv.Itoa(int(temp))
-			slice[i-1] += slice[i][5:]
 			slice = append(slice[:i], slice[i+1:]...)
 
 		} else if slice[i] == "(hex)" {
@@ -23,7 +22,6 @@ func Base(s *[]string) {
 				return
 			}
 			slice[i-1] = strconv.Itoa(int(temp))
-			slice[i-1] += slice[i][5:]
 			slice = append(slice[:i], slice[i+1:]...)
 		}
 	}
