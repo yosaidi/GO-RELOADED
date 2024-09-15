@@ -2,14 +2,13 @@ package reload
 
 import (
 	"strconv"
-	"strings"
 )
 
 func Base(s *[]string) {
 	slice := *s
 
 	for i := 1; i < len(slice); i++ {
-		if strings.HasPrefix(slice[i], "(bin") {
+		if slice[i] == "(bin)" {
 			temp, err := strconv.ParseInt(slice[i-1], 2, 64)
 			if err != nil {
 				return
@@ -18,7 +17,7 @@ func Base(s *[]string) {
 			slice[i-1] += slice[i][5:]
 			slice = append(slice[:i], slice[i+1:]...)
 
-		} else if strings.HasPrefix(slice[i], "(hex") {
+		} else if slice[i] == "(hex)" {
 			temp, err := strconv.ParseInt(slice[i-1], 16, 64)
 			if err != nil {
 				return
