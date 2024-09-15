@@ -17,7 +17,7 @@ func ProccessText(str string) string {
 		reload.VowelCheck(&strsplit)
 		reload.Ponctuation(&strsplit)
 		reload.AdjustSingleQuotes(&strsplit)
-		reload.CompleteSingleQuotes(&strsplit)
+		// reload.CompleteSingleQuotes(&strsplit)
 		i++
 	}
 	reload.InsertSpaceAfterPunc(&strsplit)

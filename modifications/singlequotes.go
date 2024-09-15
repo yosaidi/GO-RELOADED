@@ -8,16 +8,24 @@ func AdjustSingleQuotes(s *[]string) {
 		return
 	}
 	for i < len(slice) {
-
-		if (slice[0][0] == '\'' || slice[i] == "'") && count == 0 {
+		if (slice[i][0] == '\'') && count == 0 {
 			count++
-			slice[i] += slice[i+1]
-			slice = append(slice[:i+1], slice[i+2:]...)
+			if slice[i]=="'"{
+				slice[i] += slice[i+1]
+				slice = append(slice[:i+1], slice[i+2:]...)
+			}
+		
 
-		} else if slice[i] == "'" && count%2 == 1 {
-			slice[i-1] += slice[i]
-			slice = append(slice[:i], slice[i+1:]...)
+		} else if slice[i][0] == '\'' && count%2 == 1 {
 			count++
+			if slice[i]=="'"{
+				slice[i-1] += slice[i]
+				slice = append(slice[:i], slice[i+1:]...)
+
+			}else if slice[i][0]=='\''&&slice[i]!="'"{
+               
+			   
+			}
 
 		} else if slice[i] == "'" && count%2 == 0 {
 			count++
@@ -30,6 +38,7 @@ func AdjustSingleQuotes(s *[]string) {
 			i++
 		}
 	}
+
 	*s = slice
 }
 
